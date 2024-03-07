@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "35449708033",
+    "project_id": "bluechat-c371b",
+    "storage_bucket": "bluechat-c371b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:35449708033:android:1e2eab9ef21450b4afaa00",
+        "android_client_info": {
+          "package_name": "com.example.bluechat"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBf6HOnPbzS0OR05KVq7NfgoRMui5k2ShI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
