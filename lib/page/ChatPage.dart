@@ -107,7 +107,7 @@ class _ChatPageState extends State<ChatPage> {
           Expanded(
             child: FieldText(
               controller: _messageController,
-              hintText: 'enter message',
+              hintText: 'Tulis Pesan...',
               obscureText: false,
              
             ),

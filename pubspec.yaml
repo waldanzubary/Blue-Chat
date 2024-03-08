@@ -39,6 +39,7 @@ dependencies:
   firebase_auth: ^4.17.7
   provider:
   cloud_firestore: ^4.15.7
+  custom_navigation_bar: ^0.8.2
 
 dev_dependencies:
   flutter_test:

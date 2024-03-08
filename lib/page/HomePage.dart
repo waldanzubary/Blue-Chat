@@ -83,6 +83,8 @@
               Tab(child: Text('Status', style: TextStyle(color: Colors.white))),
               Tab(child: Text('Settings', style: TextStyle(color: Colors.white))),
             ],
+             indicatorColor: Colors.white, 
+             
           ),
         ),
         body: TabBarView(
@@ -141,7 +143,7 @@
       .toList();
 
   if (userListWidgets.isEmpty) {
-    return const Center(child: Text('Nama Tidak Di Temukan'));
+    return const Center(child: Text('Nama Tidak Di Temukans'));
   }
 
   return ListView(
