@@ -6,30 +6,28 @@ class FieldText extends StatelessWidget {
   final bool obscureText;
 
   const FieldText({
-    Key? key, 
-    required this.controller, 
-    required this.hintText, 
+    Key? key,
+    required this.controller,
+    required this.hintText,
     required this.obscureText,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
-      controller: controller,
-      obscureText: obscureText,
-      style: TextStyle(color: Colors.white), // Set text color to white
-      decoration: InputDecoration(
-        enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.grey),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.white),
-        ),
-        fillColor: Colors.blue,
-        filled: true,
-        hintText: hintText,
-        hintStyle: TextStyle(
-          color: Colors.white,
+    return Container(
+      padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+      decoration: BoxDecoration(
+        color: Colors.blue.withOpacity(1), // Background color with opacity
+        borderRadius: BorderRadius.circular(30.0), // Rounded corners
+      ),
+      child: TextField(
+        controller: controller,
+        obscureText: obscureText,
+        style: TextStyle(color: Colors.white),
+        decoration: InputDecoration(
+          border: InputBorder.none, // Remove border
+          hintText: hintText,
+          hintStyle: TextStyle(color: Colors.white),
         ),
       ),
     );

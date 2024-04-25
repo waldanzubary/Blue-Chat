@@ -12,7 +12,7 @@ class ChatPage extends StatefulWidget {
     Key? key,
     required this.receiverUserEmail,
     required this.receiverUserID,
-     required this.receiverUsername,
+    required this.receiverUsername,
   }) : super(key: key);
 
   @override
@@ -27,16 +27,46 @@ class _ChatPageState extends State<ChatPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(widget.receiverUsername,
-      style: TextStyle(color: Colors.white),
-    ),
-    backgroundColor: Colors.blue,
-    iconTheme: IconThemeData(color: Colors.white)),
+      appBar: AppBar(
+        title: Row(
+          children: [
+            _buildUserAvatar(),
+            SizedBox(width: 10),
+            Text(
+                 widget.receiverUsername.length > 10
+                 ? '${widget.receiverUsername.substring(0, 10)}...'
+                  : widget.receiverUsername,
+                   style: TextStyle(color: Colors.white),
+             ),
+            Spacer(), 
+            Icon(Icons.phone)
+          ],
+        ),
+        backgroundColor: Colors.blue,
+        iconTheme: IconThemeData(color: Colors.white),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            bottom: Radius.circular(20), 
+          ),
+        ),
+        shadowColor: Colors.black,
+      ),
       body: Column(
         children: [
           Expanded(child: _buildMessageList()),
           _buildMessageInput(),
         ],
+      ),
+    );
+  }
+
+  // Method untuk membuat CircleAvatar
+  Widget _buildUserAvatar() {
+    return CircleAvatar(
+      backgroundColor: Colors.white,
+      child: Text(
+        widget.receiverUsername.substring(0, 1).toUpperCase(),
+        style: TextStyle(color: Colors.blue),
       ),
     );
   }
@@ -56,7 +86,7 @@ class _ChatPageState extends State<ChatPage> {
 
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(
-            child: CircularProgressIndicator(), 
+            child: CircularProgressIndicator(),
           );
         }
 
@@ -70,24 +100,28 @@ class _ChatPageState extends State<ChatPage> {
 
             return Padding(
               padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-              child: Row(
-                mainAxisAlignment:
-                    isCurrentUser ? MainAxisAlignment.end : MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
+              child: Column(
+                crossAxisAlignment: isCurrentUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
                 children: [
-                  Flexible(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: isCurrentUser ? Colors.blueAccent : Colors.grey[300],
-                        borderRadius: BorderRadius.circular(8.0),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: isCurrentUser ? Colors.blueAccent : Colors.grey[300],
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                    padding: EdgeInsets.all(12.0),
+                    child: Text(
+                      data['message'],
+                      style: TextStyle(
+                        color: isCurrentUser ? Colors.white : Colors.black,
                       ),
-                      padding: EdgeInsets.all(12.0),
-                      child: Text(
-                        data['message'],
-                        style: TextStyle(
-                          color: isCurrentUser ? Colors.white : Colors.black,
-                        ),
-                      ),
+                    ),
+                  ),
+                  SizedBox(height: 4),
+                  Text(
+                    _getFormattedTimestamp(data['timestamp']),
+                    style: TextStyle(
+                      color: Colors.grey[600],
+                      fontSize: 12.0,
                     ),
                   ),
                 ],
@@ -107,16 +141,19 @@ class _ChatPageState extends State<ChatPage> {
           Expanded(
             child: FieldText(
               controller: _messageController,
-              hintText: 'Tulis Pesan...',
+              hintText: 'Tulis Sebuah pesan...',
               obscureText: false,
-             
             ),
           ),
           SizedBox(width: 12.0),
           IconButton(
-  onPressed: _sendMessage,
-  icon: Icon(Icons.send, size: 40,color: Colors.blue,), // Menggunakan ikon send
-),
+            onPressed: _sendMessage,
+            icon: Icon(
+              Icons.send,
+              size: 50,
+              color: Colors.blue,
+            ),
+          ),
         ],
       ),
     );
@@ -141,9 +178,16 @@ class _ChatPageState extends State<ChatPage> {
         'senderId': currentUserId,
         'message': message,
         'timestamp': Timestamp.now(),
-        'Reciver Message Username': widget.receiverUsername,
+        'receiverMessageUsername': widget.receiverUsername,
       });
     }
   }
-}
 
+  String _getFormattedTimestamp(Timestamp timestamp) {
+    DateTime dateTime = timestamp.toDate();
+    String hour = dateTime.hour.toString();
+    String minute = dateTime.minute.toString().padLeft(2, '0'); // Pastikan menit selalu dua digit
+    String formattedTime = "$hour:$minute WIB"; // Tambahkan label WIB
+    return formattedTime;
+  }
+}
